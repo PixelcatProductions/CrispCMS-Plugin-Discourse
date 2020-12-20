@@ -94,15 +94,7 @@ if (array_key_exists('HTTP_X_DISCOURSE_EVENT_SIGNATURE', $_SERVER) && $_SERVER["
                     $Message = "Success!";
                 }
             } else {
-                $Response = array(
-                    "error" => $Error,
-                    "message" => "No match!",
-                    "post" => $PayLoad->post->raw,
-                    "regex" => array(
-                        "regexp" => \crisp\api\Config::get("plugin_discourse_service_regex"),
-                        "matches" => preg_match_all(\crisp\api\Config::get("plugin_discourse_service_regex"), $PayLoad->post->raw)
-                    )
-                );
+                $Error[] = "No match";
             }
         }
     } else {

@@ -6,7 +6,7 @@
     "onInstall": {
         "createTranslationKeys": {},
         "createKVStorageItems": {
-            "service_regex": "/has been added|i have added|for review|added to|is up|have been added/i"
+            "service_regex": "/has been added|i have added|for review|added to|is up|is now up|have been added/i"
         },
         "activateDependencies": []
     },
