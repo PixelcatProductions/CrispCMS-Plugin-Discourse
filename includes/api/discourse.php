@@ -72,7 +72,7 @@ if (array_key_exists('HTTP_X_DISCOURSE_EVENT_SIGNATURE', $_SERVER) && $_SERVER["
                     $Documents = crisp\api\Phoenix::getDocumentsByServicePG($Service["id"]);
 
                     $String = "Hello!\n\nIt seems that your service already is in our System!\n\nService: https://edit.tosdr.org/services/" . $Service["id"];
-                    
+
                     if (count($Documents) > 0) {
                         $String .= "\n\nDocuments:\n";
                         foreach ($Documents as $Document) {
@@ -90,7 +90,9 @@ if (array_key_exists('HTTP_X_DISCOURSE_EVENT_SIGNATURE', $_SERVER) && $_SERVER["
 
                     $Discourse = new \pnoeric\DiscourseAPI($EnvFile["DISCOURSE_HOSTNAME"], $EnvFile["DISCOURSE_API_KEY"]);
 
-                    $responses[] = $Discourse->createPost("Hello!\nThanks for contributing to ToS;DR!\n\nA curator will soon add your service to our database.", $PayLoad->post->topic_id, "system", new DateTime());
+                    $Service = \crisp\api\Phoenix::getServiceByNamePG($PayLoad->post->topic_title);
+
+                    $responses[] = $Discourse->createPost("Hello!\nThanks for contributing to ToS;DR!\n\nA curator will soon add the documents to our database.\n\nService Link: https://edit.tosdr.org/services/" . $Service["id"], $PayLoad->post->topic_id, "system", new DateTime());
                     $Message = "Success!";
                 }
             } else {
